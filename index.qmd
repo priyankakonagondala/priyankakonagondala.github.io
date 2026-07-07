@@ -57,7 +57,7 @@ Through this technical log, I share my ongoing explorations into local LLM execu
 
 <div class="experience-entry">
   <div class="exp-header">
-    <span class="exp-company">Tech Mahindra, Bangalore</span>
+    <span class="exp-company">Samsung R&D Institute India, Bangalore</span>
     <span class="exp-dates">Jan 2017 – Jun 2019</span>
   </div>
   <div class="exp-role">Machine Learning Engineer</div>

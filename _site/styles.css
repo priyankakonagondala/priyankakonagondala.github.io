@@ -55,7 +55,7 @@ a:hover {
 }
 
 .page-columns.book-page {
-  grid-template-columns: [screen-start] 1.5em [screen-start-inset] 5fr [page-start page-start-inset] 35px [body-start-outset] 35px [body-start] 1.5em [body-content-start] minmax(500px, calc(1400px - 3em)) [body-content-end] 1.5em [body-end] 35px [body-end-outset] 35px [page-end-inset page-end] 5fr [screen-end-inset] 1.5em !important;
+  grid-template-columns: [screen-start] 1.5em [screen-start-inset] 5fr [page-start page-start-inset] 35px [body-start-outset] 35px [body-start] 1.5em [body-content-start] minmax(500px, calc(1400px - 3em)) [body-content-end] 1.5em [body-end] 35px [body-end-outset] minmax(75px, 145px) [page-end-inset page-end] 5fr [screen-end-inset] 1.5em !important;
 }
 
 /* === Profile image === */
@@ -149,6 +149,9 @@ td a:hover {
 #quarto-sidebar {
   background-color: #011040 !important;
   border-right: 1px solid #0a2463 !important;
+  width: 280px !important;
+  min-width: 280px !important;
+  max-width: 280px !important;
 }
 
 #quarto-sidebar .sidebar-item-container .sidebar-item {
@@ -211,11 +214,13 @@ body:not(.book-page) .page-columns .page-column-side {
 .listing-title a,
 .listing-title {
   color: #ffffff !important;
+  margin-bottom: 0.5rem;
 }
 
 .listing-description a,
 .listing-description {
   color: #ccc !important;
+  margin-top: 1.5rem !important;
 }
 
 .listing-date a,
@@ -244,6 +249,24 @@ hr {
   background-color: #011040 !important;
   border-top: 1px solid #0a2463;
   color: #999 !important;
+}
+
+footer.footer {
+  background-color: #011040 !important;
+  border-top: 1px solid #0a2463;
+  color: #999 !important;
+  padding: 0.5rem 0 !important;
+}
+
+.nav-footer {
+  padding: 0.25rem 1rem;
+}
+
+.nav-footer-left p,
+.nav-footer-center p,
+.nav-footer-right p {
+  font-size: 0.8rem;
+  margin: 0;
 }
 
 /* === Experience entries === */
@@ -306,8 +329,7 @@ p {
 @media (max-width: 768px) {
 
   /* 1. Content grid — single column with right padding */
-  .page-columns,
-  .page-columns.book-page {
+  .page-columns {
     grid-template-columns: 1.5em minmax(0, 1fr) 1.5em !important;
   }
 
@@ -397,6 +419,13 @@ p {
     display: none !important;
   }
 
+  /* Reset sidebar width on mobile — use Bootstrap collapse */
+  #quarto-sidebar {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
   /* 9. Blog listing divider spacing */
   hr {
     margin-top: 1.5rem;
@@ -421,6 +450,31 @@ p {
   .page-body {
     padding-right: 1rem !important;
     padding-left: 0.5rem !important;
+  }
+
+  /* 13. Footer — compact on mobile */
+  footer.footer {
+    padding: 0.35rem 0 !important;
+  }
+
+  .nav-footer {
+    flex-wrap: wrap;
+    padding: 0.15rem 0.75rem;
+    gap: 0.25rem;
+  }
+
+  .nav-footer-left,
+  .nav-footer-center,
+  .nav-footer-right {
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-footer-left p,
+  .nav-footer-center p,
+  .nav-footer-right p {
+    font-size: 0.75rem;
+    line-height: 1.3;
   }
 }
 
