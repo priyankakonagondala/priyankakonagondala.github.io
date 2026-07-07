@@ -1,0 +1,12 @@
+---
+title: "The Limits of Scale — A Book"
+description: "A 7-chapter exploration of why AI is hitting the walls of compute, memory, precision, and learning efficiency."
+date: 2026-07-01
+categories: [Book]
+---
+
+[A 7-chapter exploration of why AI is hitting the walls of compute, memory, precision, and learning efficiency](../my-book/ch1.html){.newsletter-btn}
+
+This book examines the constraints that shaped modern AI infrastructure — from scaling laws to memory hierarchies, precision requirements, and the real cost of training.
+
+**[Start Reading →](../my-book/ch1.html)**

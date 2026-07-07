@@ -1,0 +1,189 @@
+---
+title: "The Hidden Physics of the Transformer"
+date: 2025-07-02
+sidebar: true
+---
+
+
+```{=html}
+<script>document.body.classList.add('book-page');</script>
+```
+
+The most revealing problems in computer science are often not computational problems at all. They are
+physical ones.
+
+
+This observation has appeared repeatedly throughout the history of computing, although it is easy to
+overlook because software has a peculiar habit of concealing the machinery beneath it. An algorithm is
+written as though memory were infinite, processors instantaneous, and communication free. Reality, of
+course, is less accommodating. Every instruction ultimately becomes the movement of electrical signals
+through silicon, every data structure occupies a finite location in memory, and every computation
+competes with countless others for access to buses, caches and interconnects. The elegance of an
+algorithm on paper is therefore only one half of the story. The other half is whether the underlying
+machine can execute it efficiently.
+
+
+Large language models have reached precisely this point in their evolution.
+
+
+For much of the past decade, discussion surrounding transformer architectures has been dominated by
+mathematics. Attention mechanisms, positional encodings, normalization strategies, activation
+functions and scaling laws have understandably occupied the spotlight. They are intellectually satisfying
+subjects because they describe how a model learns. Yet there is another, quieter discipline that
+determines whether those ideas can be deployed at scale: computer architecture.
+
+
+It is difficult to appreciate this distinction until one considers a simple question.
+
+
+What, exactly, is a GPU doing while a language model generates the next token?
+
+
+The intuitive answer is that it is performing matrix multiplications. This is certainly true, but it is
+incomplete in much the same way that describing a modern city as "a place where people work" is true
+without explaining traffic, electricity, water distribution or public transport. Computation is only one
+activity occurring within the machine. An equally significant amount of time is spent retrieving operands
+from memory, transferring intermediate results between processing units, synchronizing execution
+across thousands of concurrent threads and waiting for data that has not yet arrived.
+
+
+The larger a model becomes, the more these invisible activities begin to dominate.
+
+
+This phenomenon is neither unique to artificial intelligence nor particularly new. Computer architects
+have spent decades confronting what has become known as the memory wall . Processor performance
+has historically improved at a substantially faster rate than memory bandwidth and latency. Arithmetic
+units capable of performing trillions of floating-point operations per second are of limited value if they
+must repeatedly pause while waiting for the data upon which those operations depend. A processor
+deprived of information resembles an assembly line deprived of components: its theoretical
+productivity becomes largely irrelevant.
+
+
+The implications for transformer models are profound.
+
+
+Consider inference rather than training. Every generated token requires the model to revisit
+information accumulated throughout the conversation. Hidden states from previous tokens are
+transformed into keys and values and stored within the key-value cache, allowing subsequent attention
+operations to reuse earlier computations rather than recompute them from scratch. Conceptually, this
+is an elegant optimization. Computationally, it introduces an entirely different problem.
+
+
+The cache grows monotonically with context length.
+
+
+A conversation containing a few hundred tokens presents little difficulty. A conversation spanning
+hundreds of thousands of tokens does. Every newly generated token now requires reading an
+increasingly large collection of keys and values distributed across high-bandwidth memory. The
+arithmetic required to compute attention may remain manageable, particularly following innovations
+such as FlashAttention, which dramatically improved memory access patterns during the attention
+computation itself. Yet before the GPU can perform those optimized computations, it must first retrieve
+the relevant information from memory. The cost of transportation begins to rival, and eventually
+exceed, the cost of calculation.
+
+
+The distinction is subtle but fundamental.
+
+
+Most discussions of transformer efficiency remain preoccupied with reducing the number of floating-
+point operations. Increasingly, however, FLOPs are not the scarce resource. Modern tensor cores are
+astonishingly efficient at multiplying matrices. What they cannot do is eliminate the physical distance
+separating computation from data. Information must still traverse the memory hierarchy, moving from
+high-bandwidth memory into on-chip SRAM, through shared memory and registers, before finally
+reaching the execution units responsible for computation. Every journey consumes time. Every journey
+consumes energy. Every unnecessary journey compounds across billions of tokens.
+
+
+One might reasonably ask why these issues appear so suddenly. After all, transformer architectures
+have existed since 2017. Why did memory bandwidth emerge as the defining bottleneck only recently?
+
+
+The answer lies in an irony familiar throughout the history of engineering. Success often creates the
+conditions under which entirely new limitations become visible.
+
+
+Early transformer models were sufficiently small that arithmetic dominated execution time. There were
+simply too few parameters and too little context for memory movement to become overwhelming.
+Simultaneously, GPU vendors were delivering extraordinary improvements in computational
+throughput. Tensor cores, mixed-precision arithmetic and increasingly sophisticated compiler
+optimizations caused the cost of matrix multiplication to fall far more rapidly than the cost of moving
+data. The consequence was predictable, though not immediately obvious. Computation became
+progressively cheaper while communication remained stubbornly constrained by the physical realities
+of semiconductor manufacturing.
+
+
+The bottleneck migrated.
+
+
+A useful analogy can be found in transportation engineering. Imagine a city that responds to growing
+traffic congestion by continuously building faster automobiles while leaving its roads unchanged.
+Initially, travel times improve. Eventually, however, the limiting factor ceases to be the speed of
+individual vehicles and becomes the capacity of the road network itself. At that point, constructing an
+even faster engine contributes almost nothing to the average journey. Progress instead requires
+redesigning intersections, optimizing traffic flow and reducing unnecessary travel altogether.
+
+
+The transformer finds itself in a remarkably similar situation.
+
+
+For years, the community devoted extraordinary effort to building increasingly powerful computational
+engines. Larger models, faster tensor cores and more capable accelerators delivered spectacular gains.
+Yet these improvements gradually exposed another reality. The dominant cost was no longer
+performing computation but supplying computation with the information it required. Intelligence, one
+might say, had become inexpensive. Transporting intelligence had not.
+
+
+This observation represents the first genuine departure from the scaling paradigm described in the
+previous chapter. If memory movement rather than arithmetic has become the principal constraint,
+then entirely different optimization strategies become attractive. Compressing representations
+becomes more valuable than accelerating computation. Locality becomes more valuable than raw
+throughput. Numerical precision becomes an architectural decision rather than merely a statistical one.
+Entire classes of innovations—many of which initially appear modest when viewed in isolation—
+suddenly reveal themselves as responses to a common underlying problem.
+
+
+This is precisely the context in which several seemingly unrelated developments begin to converge.
+FlashAttention reorganizes the order in which attention is computed to minimize unnecessary transfers
+between high-bandwidth memory and on-chip memory. Grouped Query Attention reduces the amount
+of key-value state that must be stored and retrieved during inference. FP8 arithmetic reduces the
+volume of information flowing through the memory hierarchy. Compiler technologies fuse kernels to
+eliminate intermediate writes back to memory. Even distributed training strategies increasingly
+prioritize overlapping communication with computation, recognizing that idle hardware often reflects
+unavailable data rather than insufficient arithmetic capability.
+
+
+None of these techniques attempts to make transformers more intelligent.
+
+
+They attempt to make transformers less wasteful.
+
+
+Viewed independently, each innovation appears incremental. Viewed collectively, they reveal something
+more significant. The center of innovation had shifted away from inventing fundamentally new learning
+algorithms toward understanding where the machine itself was leaking efficiency. Modern AI research
+was beginning to resemble high-performance computing, a discipline in which success is rarely
+achieved through a single dramatic breakthrough and far more often through relentless elimination of
+hidden overhead.
+
+
+The consequences of this change extend beyond hardware utilization. Once engineers begin viewing
+computation as a scarce economic resource rather than an abundant one, every layer of the
+transformer becomes open to reconsideration. Why should every parameter participate in generating
+every token? Why should every representation remain stored at full precision? Why should every
+communication operation block useful work elsewhere in the system? Questions that once seemed
+peripheral suddenly become central.
+
+
+It is here that one encounters perhaps the most consequential architectural idea of the modern transformer era. Surprisingly, it is also one of the oldest.
+
+
+Long before anyone imagined trillion-parameter language models, researchers had proposed a
+deceptively simple idea: perhaps intelligence does not require every part of a network to think all of the
+time.
+
+
+The idea was called **Mixture of Experts** .
+
+For nearly three decades it remained an elegant concept waiting for the surrounding ecosystem to
+catch up.
+

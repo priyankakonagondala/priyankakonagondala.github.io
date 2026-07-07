@@ -1,0 +1,239 @@
+---
+title: "The Network Problem"
+date: 2025-07-05
+sidebar: true
+---
+
+
+```{=html}
+<script>document.body.classList.add('book-page');</script>
+```
+
+There comes a point in the evolution of every sufficiently large computing system when adding another
+processor ceases to make the system proportionally faster.
+
+
+Computer scientists have known this for decades.
+
+
+Gene Amdahl formalized one aspect of it in 1967 through what would later become known as Amdahl's
+Law: any computation containing a sequential component eventually reaches a point of diminishing
+returns, regardless of how many processors are added. Distributed systems researchers encountered
+the same phenomenon from another direction. Databases scaled until network coordination became
+dominant. Supercomputers scaled until message passing overshadowed floating-point arithmetic. Even
+Google's earliest distributed infrastructure revealed a similar lesson. Computation was rarely the scarce
+resource. Coordination was.
+
+
+Modern language models have finally arrived at the same destination.
+
+
+The public imagination often pictures frontier AI training as an enormous collection of GPUs performing
+matrix multiplications in perfect synchrony, each accelerator independently contributing its share of the
+computation. It is an appealing image because it suggests that intelligence emerges simply by
+multiplying hardware. Reality is considerably messier.
+
+
+Imagine attempting to write a novel with five thousand authors.
+
+
+Suppose every sentence requires contributions from specialists distributed across different continents.
+One author writes the introduction, another edits the grammar, a third verifies historical accuracy, while
+a fourth rewrites the dialogue. Each individual may work astonishingly quickly. Yet after every
+paragraph, they must pause, exchange drafts, reconcile conflicting edits and wait until everyone has
+reached the same point before continuing.
+
+
+Eventually the writing itself ceases to dominate the schedule.
+
+
+Communication does.
+
+
+This is remarkably close to what occurs during frontier model training.
+
+
+The transformer, elegant though it appears on paper, fragments naturally across thousands of
+accelerators. Parameters are partitioned. Activations are partitioned. Experts are partitioned. Gradients
+are partitioned. Every optimization designed to make the model larger simultaneously increases the
+amount of information that must travel between devices. At sufficiently large scales, the GPUs become
+less like isolated computers and more like citizens participating in an extraordinarily complicated
+conversation.
+
+
+The mathematics of deep learning never anticipated this.
+
+
+Backpropagation assumes gradients appear where they are needed. Matrix multiplication assumes
+operands are available when computation begins. Neither algorithm concerns itself with the
+geographical location of data because, historically, that location scarcely mattered. On a single
+processor, moving information across memory is measured in nanoseconds. Across multiple GPUs, it is
+measured in microseconds. Across multiple machines connected through InfiniBand fabrics, it becomes
+slower still. The numerical values remain small in human terms, but they accumulate relentlessly across
+trillions of operations.
+
+
+Latency compounds.
+
+
+Bandwidth saturates.
+
+
+Entire clusters begin waiting.
+
+
+One might reasonably expect this problem to disappear as networking technology improves. After all,
+NVIDIA's NVLink provides extraordinary bandwidth compared with conventional PCIe, while InfiniBand
+networks represent some of the fastest communication infrastructure ever constructed. Yet this
+expectation misunderstands an important asymmetry. GPU computation has improved at a rate that
+networking has struggled to match. Every new accelerator generation dramatically increases floating-
+point throughput, but no comparable revolution has occurred in the speed with which information
+travels between machines.
+
+
+The consequence is subtle.
+
+
+Each new generation of GPUs spends proportionally more time waiting.
+
+
+Not because the hardware is inefficient.
+
+
+Because the rest of the system cannot feed it quickly enough.
+
+
+This observation explains why scaling modern language models increasingly resembles designing a
+metropolitan transportation network rather than constructing a faster engine. Congestion, not
+horsepower, determines throughput.
+
+
+The challenge becomes particularly severe in sparse Mixture-of-Experts architectures.
+
+
+Recall from the previous chapter that only a small subset of experts participates in processing any given
+token. This dramatically reduces computation, but it introduces a new requirement. Tokens must now
+travel to whichever GPU happens to host the selected expert. Once processed, they must return before
+subsequent computation can continue.
+
+
+The arithmetic has become sparse.
+
+
+The communication has not.
+
+
+Indeed, in poorly designed systems, sparse architectures can paradoxically perform worse than dense
+models because the communication overhead required to dispatch tokens overwhelms the
+computational savings obtained through sparsity. The architecture succeeds theoretically while failing
+operationally.
+
+
+This distinction separates academic demonstrations from production-scale systems.
+
+
+Sparse computation is easy.
+
+
+Sparse communication is hard.
+
+
+The engineering challenge therefore shifted from inventing better experts to transporting tokens more
+intelligently.
+
+
+DeepSeek's engineering contributions are particularly revealing in this regard because they
+acknowledge something many discussions of Mixture-of-Experts quietly ignore: routers do not merely
+assign work; they shape network traffic. Every routing decision carries consequences extending far
+beyond model quality. Tokens assigned to distant experts incur communication latency. Experts
+receiving uneven workloads create synchronization delays. Poor routing choices propagate through the
+entire distributed system like traffic congestion spreading across a city's road network.
+
+
+Consequently, optimizing expert routing became inseparable from optimizing network utilization.
+
+
+This realization produced a series of innovations that, while less visible than new model architectures,
+arguably contributed just as much to the economics of frontier training.
+
+
+One example is **DeepEP** , a communication framework designed specifically for expert parallelism.
+Rather than treating communication as an unavoidable interruption to computation, DeepEP attempts
+to overlap the two. While one portion of the GPU performs useful numerical work, another
+simultaneously orchestrates the transfer of tokens between experts. The objective is not to reduce
+communication itself—a physical impossibility—but to prevent communication from creating idle
+hardware.
+
+
+This distinction is easy to miss.
+
+
+Suppose a package delivery service cannot reduce the distance between two cities. It may still improve
+overall efficiency by ensuring drivers continue delivering other packages while long-distance shipments
+remain in transit. DeepEP applies an analogous philosophy to distributed inference and training.
+Communication becomes another task to schedule rather than an event requiring the entire system to
+pause.
+
+
+A similar philosophy underlies **DualPipe** , another innovation associated with DeepSeek's training
+infrastructure. Traditional pipeline parallelism often suffers from what practitioners refer to as pipeline
+bubbles —intervals during which expensive accelerators remain idle because they are waiting for data
+from adjacent stages. DualPipe reorganizes execution so that forward and backward computations
+proceed concurrently whenever possible, allowing communication to disappear beneath useful work.
+Like an experienced orchestra conductor, the system attempts to ensure that no section remains silent
+while another performs.
+
+
+What is striking about these contributions is that they possess almost nothing in common with
+traditional machine learning research.
+
+
+They belong instead to the intellectual tradition of operating systems, compiler design and high-
+performance computing.
+
+
+The neural network itself changes very little.
+
+
+Everything surrounding it changes dramatically.
+
+
+One begins to appreciate why describing DeepSeek or Qwen merely as "AI models" misses something
+important. They are not simply statistical objects. They are distributed software systems spanning
+thousands of accelerators, multiple memory hierarchies, sophisticated communication protocols and
+increasingly intelligent runtime schedulers. Their capabilities emerge as much from systems
+engineering as from optimization theory.
+
+
+This observation, more than any benchmark, explains why frontier AI has become extraordinarily
+difficult to reproduce. Publishing model weights is one thing. Reproducing the invisible infrastructure
+that keeps tens of thousands of GPUs simultaneously productive is quite another. Increasingly, the
+competitive advantage lies not only in the learned parameters but in the engineering discipline that
+allows those parameters to be trained efficiently in the first place.
+
+
+There is an irony here.
+
+
+The transformer was originally celebrated because attention allowed every token to communicate with
+every other token.
+
+
+Years later, the greatest engineering challenge turned out not to be communication within the model,
+but communication between the machines running it .
+
+
+The boundary between machine learning and distributed systems had quietly dissolved.
+
+
+Yet even after eliminating wasted computation, compressing memory movement and hiding network
+latency, one uncomfortable question remained.
+
+
+Why perform calculations using thirty-two bits when far fewer might suffice?
+
+
+The next frontier would not concern where information traveled.
+
+
+It would concern **how precisely that information needed to exist at all.**

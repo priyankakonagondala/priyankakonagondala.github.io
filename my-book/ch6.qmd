@@ -1,0 +1,258 @@
+---
+title: "How Much Precision Does Intelligence Need-"
+date: 2025-07-06
+sidebar: true
+---
+
+
+```{=html}
+<script>document.body.classList.add('book-page');</script>
+```
+
+In 1948, Claude Shannon published a paper that permanently altered the study of communication. Its
+central insight was almost unsettling in its simplicity. Information, Shannon argued, could be treated
+independently of its meaning. A telephone network did not need to understand poetry to transmit a
+poem. It merely needed to preserve sufficient information for the message to be reconstructed
+faithfully at the other end.
+
+
+This distinction transformed engineering.
+
+
+Once information became measurable, it also became compressible. Engineers no longer asked only
+whether communication was possible; they began asking how many bits were truly necessary. Every
+subsequent advance in digital communication—from JPEG compression and MP3 encoding to modern
+video codecs—has revolved around precisely this question. Not every detail contributes equally to
+perception. If redundancy can be removed without altering what ultimately matters, efficiency improves
+dramatically.
+
+
+Modern language models have arrived at an analogous moment.
+
+
+For much of the history of deep learning, numerical precision was treated as a matter of scientific
+conservatism. Training occurred in FP32 because it was stable. Inference eventually adopted FP16 and
+later BF16 as hardware matured, but these changes were generally regarded as engineering
+optimizations rather than conceptual ones. The underlying assumption remained largely intact: more
+precision was inherently safer.
+
+
+Yet precision, like every other computational resource, has a cost.
+
+
+Every additional bit occupies memory.
+
+
+Every additional bit consumes bandwidth.
+
+
+Every additional bit traverses interconnects, cache hierarchies and register files.
+
+
+Multiply those costs by trillions of parameters and quadrillions of arithmetic operations, and numerical
+representation ceases to be a mathematical abstraction. It becomes an economic decision.
+
+
+The remarkable growth of frontier language models forced engineers to confront an uncomfortable
+possibility. Perhaps the overwhelming majority of those bits were contributing remarkably little to the
+final behaviour of the network.
+
+
+The history of numerical computing suggests that this should not have been surprising.
+Scientific computing has long distinguished between accuracy and precision . Accuracy concerns whether
+a computation approaches the correct answer. Precision concerns how many digits are used while
+performing that computation. The two are related, but they are not synonymous. Carrying twenty
+decimal places through an equation does not necessarily produce a more accurate physical model if
+measurement error dominates after the third.
+
+
+Deep neural networks exhibit a similar tolerance.
+
+
+Gradients are inherently noisy. Activations fluctuate across enormous populations of neurons.
+Stochastic optimization introduces randomness at every stage of learning. The network itself is already
+an approximation. Demanding exact numerical representations throughout the entire computation
+therefore begins to resemble carrying microscopic measurement accuracy into a problem whose
+uncertainty is fundamentally macroscopic.
+
+
+This realization unfolded gradually.
+
+
+Mixed-precision training demonstrated that carefully selected portions of computation could safely
+operate at lower precision while preserving convergence. Automatic loss scaling addressed many of the
+numerical instabilities that initially discouraged such approaches. Hardware vendors responded by
+designing tensor cores specifically optimized for lower-precision arithmetic, dramatically increasing
+throughput while reducing memory traffic.
+
+
+By the time NVIDIA introduced native FP8 support within the Hopper architecture, the question had
+changed.
+
+
+The challenge was no longer whether lower precision could work.
+
+
+It had become how aggressively one could exploit it.
+
+
+This shift represents something deeper than another optimization.
+
+
+Lower precision alters multiple bottlenecks simultaneously.
+
+
+Memory capacity increases because each parameter occupies fewer bytes.
+
+
+Memory bandwidth improves because fewer bytes require transport.
+
+
+Cache utilization improves because more information fits within the same physical storage.
+
+
+Communication across distributed systems accelerates because gradients become smaller.
+
+
+Energy consumption falls because moving bits is often more expensive than manipulating them.
+
+
+One architectural decision propagates through nearly every layer of the system.
+
+
+Once again, the most significant savings arise not from performing faster arithmetic but from
+transporting less information.
+
+
+Notice how familiar this argument has become.
+
+
+Every chapter of this book has quietly arrived at the same destination through a different route.
+
+
+Sparse experts reduced unnecessary computation.
+
+
+Multi-head Latent Attention reduced unnecessary memory.
+
+
+DeepEP reduced unnecessary waiting.
+
+
+Lower precision reduces unnecessary representation.
+
+
+Different innovations.
+
+
+The same philosophy.
+
+
+This convergence is not accidental.
+
+
+It reflects an increasingly mature understanding of where the true costs of intelligence reside.
+
+
+For years, the field behaved as though the neural network itself were the primary object of study.
+Increasingly, the network resembles only one component within a far larger computational ecosystem.
+Numerical representation, compiler optimization, runtime scheduling, communication protocols and
+memory layout all influence the practical economics of intelligence as profoundly as architectural
+decisions within the model itself.
+
+
+One begins to recognize a broader historical pattern.
+
+
+The early decades of computing were dominated by inventing algorithms.
+
+
+The following decades were dominated by implementing those algorithms efficiently.
+
+
+Artificial intelligence appears to be entering an analogous phase.
+
+
+The discovery of the Transformer solved one problem.
+
+
+The next generation of research is discovering how little of the original computation the Transformer
+actually requires.
+
+
+That distinction may ultimately prove more important than the invention itself.
+
+
+Consider the implications.
+
+
+Suppose two laboratories possess models of comparable capability.
+
+
+One requires ten megawatts to serve.
+
+
+The other requires three.
+
+
+One fits comfortably within commodity clusters.
+
+
+The other demands specialized infrastructure.
+
+One responds within hundreds of milliseconds.
+
+
+The other within seconds.
+
+
+From the perspective of users, these systems appear nearly identical.
+
+
+From the perspective of economics, they inhabit entirely different worlds.
+
+
+Efficiency is no longer merely an implementation detail.
+
+
+It has become capability expressed in another currency.
+
+
+This observation helps explain why the recent achievements of laboratories such as DeepSeek, Qwen
+and Moonshot AI cannot be evaluated solely through benchmark scores. Their contributions extend
+beyond model quality into something arguably more consequential: they have demonstrated that
+architectural ingenuity can substitute, at least partially, for brute computational expenditure. In doing
+so, they have reopened questions that many believed had already been settled.
+
+
+How much computation is genuinely necessary?
+
+
+How much memory is genuinely necessary?
+
+
+How much communication is genuinely necessary?
+
+
+And now—
+
+
+How many bits are genuinely necessary?
+
+
+History suggests that engineers who ask such questions rarely stop at one answer.
+
+
+Each successful reduction merely reveals another hidden inefficiency waiting beneath it.
+
+
+The economics of intelligence continue to unfold, layer by layer, constraint by constraint.
+
+
+And perhaps the most intriguing constraint of all is not numerical.
+
+
+It is pedagogical.
+
+
+Must a model truly learn everything from scratch?

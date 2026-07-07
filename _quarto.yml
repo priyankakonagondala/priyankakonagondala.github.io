@@ -1,0 +1,46 @@
+project:
+  type: website
+
+website:
+  title: "Priyanka's Blog"
+  description: "Thoughts on technology, programming, and life."
+  page-navigation: true
+  back-to-top-navigation: true
+
+  navbar:
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Blog"
+        href: posts/index.qmd
+
+  search:
+    location: navbar
+
+  sidebar:
+    style: docked
+    contents:
+      - section: "The Limits of Scale"
+        collapse: false
+        contents:
+          - my-book/auth_note.qmd
+          - my-book/ch1.qmd
+          - my-book/ch2.qmd
+          - my-book/ch3.qmd
+          - my-book/ch4.qmd
+          - my-book/ch5.qmd
+          - my-book/ch6.qmd
+          - my-book/ch7.qmd
+
+  page-footer:
+    left: "&copy; 2026 Priyanka"
+    right: ""
+
+format:
+  html:
+    theme: darkly
+    css: styles.css
+    toc: false
+    toc-depth: 2
+    code-fold: false
+    code-tools: false

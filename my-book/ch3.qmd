@@ -1,0 +1,219 @@
+---
+title: "The Model That Barely Uses Its Own Brain"
+date: 2025-07-03
+sidebar: true
+---
+
+
+```{=html}
+<script>document.body.classList.add('book-page');</script>
+```
+
+In the autumn of 1991, long before the word "transformer" entered the vocabulary of machine learning,
+long before GPUs became programmable and decades before anyone imagined training models with
+hundreds of billions of parameters, Robert Jacobs and his colleagues proposed an idea that was, at the
+time, both elegant and strangely impractical. Instead of constructing a single monolithic neural network
+responsible for solving every problem, why not build a collection of specialized networks and allow
+another network to decide which of those specialists should handle a particular input?
+
+
+The proposal was called a Mixture of Experts .
+
+
+Today the idea seems almost obvious. Hospitals do not assign every physician to every patient.
+Universities do not ask every professor to teach every course. Modern societies derive much of their
+efficiency not from universal competence but from specialization. Expertise is expensive to acquire, and
+once acquired, it becomes economically irrational to deploy all experts for every task. A dermatologist
+need not attend a routine eye examination; an astrophysicist need not review a tax return. Institutions
+become scalable precisely because they learn to activate only the expertise that is relevant.
+
+
+Yet for much of the history of deep learning, neural networks operated according to precisely the
+opposite principle.
+
+
+Every neuron participated in every forward pass.
+
+
+Every parameter contributed to every prediction.
+
+
+Every token activated the entire network.
+
+
+This architectural choice remained largely unquestioned, not because it was necessarily optimal, but
+because for many years it simply wasn't the limiting factor. Dense computation was straightforward to
+implement, GPUs were designed to excel at regular matrix operations, and models remained
+sufficiently small that the inefficiencies were tolerable. The brute-force approach worked well enough
+that few researchers had compelling reasons to revisit an alternative proposed decades earlier.
+
+
+The remarkable success of the Transformer only reinforced this trajectory. BERT, GPT, PaLM, Llama and
+their contemporaries all demonstrated that larger dense networks consistently produced better
+capabilities. Every successive generation increased parameter counts by one or two orders of
+magnitude, and for a time the economics appeared entirely favorable. Storage became cheaper.
+Accelerators became faster. Scaling laws rewarded additional computation. If activating every
+parameter produced better intelligence, why complicate the architecture?
+
+
+The answer emerged not from mathematics but from economics.
+
+
+Imagine a library containing one million books. Suppose a researcher visits in search of a single paper
+on distributed consensus algorithms. It would be absurd to insist that the librarian retrieve every
+volume in the building before allowing the researcher to read the one that mattered. The inefficiency is
+obvious because physical movement dominates the task. The objective is not to maximize the number
+of books handled but to minimize unnecessary work.
+
+
+Dense transformers perform a surprisingly similar operation.
+
+
+Consider a model with six hundred billion parameters. Every generated token activates every feed-
+forward layer, every projection matrix and every learned representation, regardless of whether the
+model is correcting punctuation, translating French poetry, generating SQL queries or explaining the
+Byzantine Generals Problem. The overwhelming majority of the model's representational capacity
+remains relevant only in a statistical sense; much of it is unlikely to contribute meaningfully to the
+immediate prediction. Nevertheless, the architecture insists upon mobilizing the entire network for
+every token.
+
+
+This observation becomes increasingly uncomfortable as models grow larger.
+
+
+Suppose one doubles the parameter count of a dense model. Storage requirements double. Training
+cost approximately doubles. Inference cost also grows because every parameter participates in every
+forward pass. Capacity and computation remain tightly coupled. Intelligence becomes more expressive,
+certainly, but it also becomes proportionally more expensive to use.
+
+
+The relationship is deceptively simple:
+
+
+More parameters require more computation.
+
+
+For years this coupling appeared almost inevitable.
+
+
+Mixture of Experts proposed severing it.
+
+
+The central insight behind sparse expert architectures is not that larger models are inherently better,
+nor that specialization itself is novel. Rather, it is that capacity and computation need not scale together . A
+model may contain hundreds of billions—or even trillions—of parameters while activating only a small
+subset for any individual token. Capacity continues to grow, but computation increases much more
+slowly.
+
+
+The distinction is subtle enough that it is often lost in popular discussions. People frequently describe
+MoE models as "only using a few experts," as though sparsity were the innovation. It is not. Sparsity is
+merely the mechanism. The deeper idea is economic: expensive resources should only be consumed
+when they create value.
+
+
+A useful comparison can be drawn with cloud computing. Modern datacenters rarely dedicate an entire
+physical server to every application. Instead, workloads are scheduled dynamically across shared
+infrastructure, allocating resources only when required. The efficiency arises not because the servers
+themselves are more powerful but because idle capacity has become economically unacceptable.
+Sparse neural networks embody the same philosophy. Parameters may exist without being
+continuously active.
+
+
+Once viewed through this lens, Mixture of Experts ceases to look like a clever neural network
+architecture and begins to resemble a resource scheduling problem.
+
+
+That realization, however, immediately introduces another difficulty.
+
+
+Who decides which expert should process a token?
+
+
+The routing network, sometimes described as the gate, performs this assignment by estimating which
+experts are likely to contribute most effectively to the current input. Conceptually, the mechanism is
+straightforward. Operationally, it is one of the most challenging components in the entire architecture.
+
+
+An ideal router should satisfy several objectives simultaneously. It should consistently dispatch
+semantically similar inputs toward experts capable of handling them effectively. It should avoid
+overloading a small subset of experts while leaving others idle. It should minimize communication
+across devices in distributed environments. Above all, it must accomplish these goals without
+introducing computational overhead that outweighs the savings obtained through sparsity.
+
+
+This last requirement proved unexpectedly difficult.
+
+
+Early Mixture-of-Experts systems frequently suffered from what researchers now refer to as expert
+collapse . The router discovered that a small number of experts consistently produced lower training loss
+and consequently directed an ever-increasing proportion of tokens toward them. Popular experts
+became overloaded while others received insufficient data to learn meaningful representations. The
+architecture gradually converged toward the very dense computation it had been designed to avoid.
+
+
+For nearly three decades, these problems prevented Mixture of Experts from becoming more than an
+intellectually attractive concept. The idea was correct. The surrounding ecosystem was not.
+
+
+Several independent developments had to occur before sparse architectures became practical.
+
+
+Accelerators needed sufficient memory capacity to store enormous collections of experts. High-speed
+interconnects such as NVLink and InfiniBand reduced, though did not eliminate, the communication
+penalties associated with routing tokens across devices. Distributed training frameworks became
+sophisticated enough to schedule dynamic execution efficiently. Routing algorithms improved. Auxiliary
+load-balancing losses became better understood. Compiler technologies matured. Even the economics
+of frontier model development changed. Once training runs began consuming millions of GPU-hours,
+recovering even modest improvements in utilization translated directly into millions of dollars in
+savings.
+
+
+Only then did the original insight reveal its full significance.
+
+
+The success of models such as DeepSeek V3, Qwen's larger sparse variants, and Kimi K2 should
+therefore not be interpreted merely as evidence that Mixture of Experts "works." The more interesting
+observation is that these laboratories treated sparse computation not as an architectural novelty but as
+the organizing principle around which the remainder of the system could be designed. Expert routing,
+communication overlap, memory layout, distributed execution and optimizer behavior ceased to be
+independent engineering problems. They became different expressions of the same optimization
+objective: activate precisely the computation that is necessary and avoid everything else.
+
+
+DeepSeek's contribution illustrates this philosophy particularly well. Much attention has focused on the
+sheer scale of the model—hundreds of billions of total parameters with only a fraction activated for
+each token—but the parameter count itself is almost a distraction. The harder engineering challenge
+lay in making sparse execution sufficiently efficient that its theoretical advantages survived contact with
+real hardware. Token routing had to remain balanced. Communication overhead had to be hidden
+beneath useful computation. Experts had to specialize without fragmenting. Idle GPUs had to become increasingly rare. Sparse computation, it turned out, demanded extraordinarily dense systems
+engineering.
+
+
+This inversion is worth pausing to appreciate.
+
+
+The world's largest language models became possible not because engineers found a way to perform
+more computation, but because they became increasingly skilled at deciding **which computation**
+**could safely be omitted** .
+
+
+That distinction may prove to be one of the defining ideas of modern artificial intelligence.
+
+
+Yet even Mixture of Experts leaves another question unanswered.
+
+
+Suppose one activates only a handful of experts for each token, dramatically reducing unnecessary
+computation. The model still faces another, equally stubborn constraint. Every generated token must
+repeatedly retrieve an ever-growing history from memory before those experts can perform useful
+work. Sparse computation reduces how much the model thinks.
+
+
+It does not reduce how much the model must remember.
+
+
+That problem would require a very different kind of innovation—one that began not by changing the
+network itself, but by questioning whether the information flowing through it needed to exist in its
+original form at all.
+

@@ -1,0 +1,6 @@
+format:
+  html:
+    toc: false
+    theme:
+      dark: darkly
+    theme-custom: ../styles.css

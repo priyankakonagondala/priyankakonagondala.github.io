@@ -1,0 +1,50 @@
+{
+  "posts/the-limits-of-scale.qmd": {
+    "the-limits-of-scale.html": "aff7733e"
+  },
+  "posts/index.qmd": {
+    "index.html": "3f83500a"
+  },
+  "posts/innovation_and_etics.qmd": {
+    "innovation_and_etics.html": "7b3dbed1"
+  },
+  "posts/nvidia_gpu_evolution.qmd": {
+    "nvidia_gpu_evolution.html": "20adb64e"
+  },
+  "posts/karpathy_autoresearch.qmd": {
+    "karpathy_autoresearch.html": "5b3d395a"
+  },
+  "posts/transformer_arch_to_infra.qmd": {
+    "transformer_arch_to_infra.html": "c1ff3e1a"
+  },
+  "WEBSITE_GUIDE.md": {
+    "WEBSITE_GUIDE.html": "50393a35"
+  },
+  "my-book/ch1.qmd": {
+    "ch1.html": "f34f6aad"
+  },
+  "my-book/ch2.qmd": {
+    "ch2.html": "6ae6ec53"
+  },
+  "my-book/ch3.qmd": {
+    "ch3.html": "264f001c"
+  },
+  "my-book/ch7.qmd": {
+    "ch7.html": "6d39ebbf"
+  },
+  "my-book/ch6.qmd": {
+    "ch6.html": "ea29a392"
+  },
+  "my-book/ch4.qmd": {
+    "ch4.html": "64f5fd4d"
+  },
+  "my-book/ch5.qmd": {
+    "ch5.html": "7155cf34"
+  },
+  "my-book/auth_note.qmd": {
+    "auth_note.html": "fa9b7758"
+  },
+  "index.qmd": {
+    "index.html": "01e3ae42"
+  }
+}

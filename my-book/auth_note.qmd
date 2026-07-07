@@ -1,0 +1,84 @@
+---
+title: "Author's Note"
+date: 2025-07-07
+sidebar: true
+---
+
+
+```{=html}
+<script>document.body.classList.add('book-page');</script>
+```
+
+This is not an article about Chinese artificial intelligence.
+
+
+Nor is it an argument about geopolitics, export controls, benchmark leadership, or the relative
+strengths of one research laboratory over another. Those discussions are important in their own right,
+but they are not the subject of these pages.
+
+
+This is an essay about a recurring phenomenon in the history of computing.
+
+Every technological era begins by believing it has discovered the fundamental currency of progress. In
+one generation it is transistor density. In another, processor frequency. Later it becomes the number of
+cores, the size of distributed clusters, or the amount of available memory. For a time, these
+relationships appear almost immutable. They are observed, measured, formalized and eventually
+accepted as natural laws.
+
+
+Then something curious happens.
+
+
+A new generation of engineers arrives, not because they possess superior mathematics or larger
+budgets, but because they ask questions that the previous generation gradually stopped asking. They
+inherit systems whose assumptions have become invisible through familiarity. Their advantage is not
+that they know more. It is that they no longer mistake engineering choices for the laws of physics.
+
+
+The history of computing is filled with such moments.
+
+
+The transition from vacuum tubes to transistors was not simply a change in materials; it was a change
+in what engineers believed was possible. The decline of single-core processors did not occur because
+clock speeds ceased to matter, but because another constraint—power density—quietly became more
+important. The rise of cloud computing was not merely the consequence of larger datacenters, but of
+recognizing that computation itself could be treated as a dynamically allocated resource rather than a
+fixed asset. Again and again, the field has advanced not because yesterday's ideas were wrong, but
+because yesterday's bottlenecks ceased to be tomorrow's.
+
+
+Artificial intelligence now appears to be passing through a similar transition.
+
+
+For much of the past decade, the dominant narrative surrounding large language models has been one
+of scale. Larger datasets, larger clusters, larger models and larger computational budgets produced
+undeniably remarkable progress. This observation was both empirically correct and historically
+significant. Yet somewhere along the way, a useful description of how progress had occurred gradually
+hardened into an assumption about how progress must continue.
+
+
+That assumption is now being questioned.
+
+
+The laboratories discussed throughout this essay—DeepSeek, Qwen, Moonshot AI, MiniMax and others
+—did not simply build capable language models. More interestingly, they exposed a different way of
+thinking about the problem itself. Rather than treating the transformer as a finished invention whose
+capabilities depended primarily upon additional computation, they approached it as a complex
+computational system still rich with hidden inefficiencies. Memory movement, numerical precision, distributed communication, routing algorithms, compiler optimizations and hardware utilization
+became first-class research problems rather than implementation details.
+
+
+Whether these particular models remain state of the art five years from now is almost beside the point.
+
+
+The engineering ideas they represent almost certainly will not disappear.
+
+
+If the argument presented here is correct, future historians of artificial intelligence may look back on
+this period not as the moment one laboratory overtook another, nor even as the beginning of reasoning
+models, but as the point at which frontier AI ceased to be viewed primarily as a machine learning
+problem and began to resemble something much older: a problem in computer architecture,
+distributed systems, numerical computing and the economics of computation itself.
+
+
+That, ultimately, is the story this essay attempts to tell.

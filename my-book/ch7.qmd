@@ -1,0 +1,225 @@
+---
+title: "The Cost of Learning"
+date: 2025-07-07
+sidebar: true
+---
+
+
+```{=html}
+<script>document.body.classList.add('book-page');</script>
+```
+
+In the closing years of the nineteenth century, the American psychologist  entity  ["people","Hermann
+Ebbinghaus","psychologist"]  undertook an unusual experiment. Frustrated by the absence of rigorous
+methods for studying memory, he decided to make himself both the researcher and the subject. Over
+several years, Ebbinghaus memorized thousands of meaningless syllables—carefully constructed
+sequences such as WID , ZOF and BOK —only to measure how quickly he forgot them. His work produced
+what is now known as the forgetting curve, one of the earliest quantitative descriptions of human
+learning.
+
+
+Hidden within those experiments was an observation that extended well beyond psychology.
+
+
+Learning is expensive.
+
+
+More precisely, relearning is expensive.
+
+
+A student who repeatedly studies material they have already mastered wastes time that could have
+been spent acquiring genuinely new knowledge. Effective education therefore depends not merely on
+presenting information, but on identifying what no longer needs to be taught.
+
+
+For more than a decade, large language models have behaved like remarkably diligent but strangely
+inefficient students.
+
+
+Every token in a training corpus receives essentially the same treatment. Every example contributes
+another gradient update, whether the model already understands the underlying concept or not. A
+paragraph explaining Newton's laws may reinforce knowledge the network acquired millions of
+examples earlier, yet the optimization process has little choice but to process it again. Stochastic
+gradient descent is wonderfully general, but it possesses no explicit notion of curriculum, mastery or
+educational efficiency. It simply continues learning until the loss declines.
+
+
+When models contained hundreds of millions of parameters, this inefficiency was acceptable.
+
+
+When training corpora expanded into tens of trillions of tokens, it became impossible to ignore.
+
+
+The economics are sobering. Every additional training token consumes storage bandwidth, networking
+bandwidth, accelerator time and electrical power. The cost is incurred whether the example teaches the
+model something genuinely new or merely repeats a lesson it has already internalized. From the
+perspective of optimization theory this redundancy is unsurprising. From the perspective of
+engineering economics, it increasingly resembles waste.
+
+
+This realization marks another quiet shift in the history of frontier AI.
+
+
+Earlier chapters argued that researchers gradually discovered waste in computation, memory
+movement, communication and numerical precision. The next frontier proved more subtle. The waste
+was no longer hidden within the hardware.
+
+It was hidden within learning itself.
+
+
+The first signs appeared in an unexpected place.
+
+
+Traditional autoregressive language models are trained to predict precisely one token at a time. Given a
+sequence of text, the model estimates the probability distribution of the next token, computes the loss,
+updates its parameters, and then repeats the process billions of times. The objective is mathematically
+elegant and has produced extraordinary results, yet it also discards a surprising amount of information.
+
+
+Imagine asking a student to complete a paragraph while grading only the very next word they write.
+
+
+The student still learns.
+
+
+But much of the information contained within the remainder of the sentence is simply ignored.
+
+
+This observation motivated one of the more interesting ideas to emerge from recent frontier research:
+**Multi-Token Prediction** .
+
+
+Rather than supervising only the immediate next token, the model is encouraged to predict several
+future tokens simultaneously. The architecture extracts substantially richer learning signals from exactly
+the same training example. No additional documents are collected. No additional GPU clusters are
+constructed. The model simply learns more from every token it already processes.
+
+
+The improvement appears modest when described algorithmically.
+
+
+Economically, it is profound.
+
+
+Once again, capability increases not because additional computation has been purchased, but because
+existing computation has become more informative.
+
+
+This philosophy reappears throughout modern reasoning models.
+
+
+For many years, supervised fine-tuning occupied a privileged position within the language-model
+pipeline. Researchers collected carefully curated demonstrations, trained models to imitate those
+demonstrations, and only then applied reinforcement learning as a final stage of refinement. The
+procedure was effective, but expensive. High-quality supervised datasets require enormous human
+effort to construct, continually age as new domains emerge, and often teach the model exactly one
+preferred solution to a problem.
+
+
+Recent systems have begun questioning this assumption.
+
+
+DeepSeek's R1 demonstrated that remarkably capable reasoning behaviour could emerge through
+reinforcement learning with comparatively little reliance on large supervised reasoning corpora. Rather
+than memorizing vast collections of human-produced chains of thought, the model learns by
+interacting with reward signals that favour successful reasoning trajectories. The distinction is subtle
+but important. Supervised learning tells the model how humans solved the problem . Reinforcement
+learning increasingly asks the model to discover its own effective strategies within a constrained
+objective.
+
+
+This should not be misunderstood as the abandonment of supervised learning.
+
+
+Rather, it represents another example of engineering maturity.
+
+
+The question has shifted from Which learning paradigm is superior? to Which learning paradigm extracts
+the greatest amount of useful capability from every unit of computation and every unit of human effort?
+
+
+The same logic underlies the growing importance of distillation.
+
+
+Training frontier models from first principles has become an undertaking measured in millions of GPU-
+hours and enormous financial investment. Yet once such a model exists, its knowledge need not remain
+confined to its original architecture. Smaller models can learn by imitating the behavioural distributions
+of larger ones, acquiring capabilities that would otherwise require vastly greater computational
+expenditure. In educational terms, the frontier model becomes a teacher.
+
+
+This changes the economics of intelligence in a fundamental way.
+
+
+Knowledge itself becomes reusable.
+
+
+The first model pays the full cost of discovery.
+
+
+Subsequent generations increasingly pay only the cost of transmission.
+
+
+Computer science has encountered this pattern before. Compilers encode decades of optimization
+research so that every programmer need not rediscover instruction scheduling. Numerical libraries
+encapsulate sophisticated algorithms behind simple interfaces. Databases preserve hard-won
+engineering knowledge accumulated over generations. Distillation performs a similar function for
+machine learning. Intelligence becomes something that can be transferred rather than repeatedly
+rediscovered.
+
+
+One begins to notice a recurring pattern.
+
+
+Sparse architectures ask whether every parameter must participate.
+
+
+MLA asks whether every representation must remain fully materialized.
+
+
+FP8 asks whether every bit must be preserved.
+
+
+Multi-token prediction asks whether every training example can teach more.
+
+
+Distillation asks whether every model must learn independently.
+
+
+Different techniques.
+
+
+The same question.
+
+
+Where is the waste hiding?
+
+
+This, perhaps more than any individual algorithm, characterizes the current phase of frontier AI
+research. Mature engineering disciplines eventually stop asking how to build larger systems and begin
+asking how to build systems that learn, remember, communicate and adapt more economically.
+
+
+The language model is no longer merely an object being optimized.
+
+
+The process by which it acquires intelligence has itself become an optimization problem.
+
+
+Yet training, for all its expense, occurs only occasionally.
+
+
+A frontier model may be trained once, distilled a handful of times and fine-tuned periodically
+throughout its lifetime.
+
+
+Inference is different.
+
+
+Inference happens every second.
+
+
+Millions of users generate billions of requests, each demanding an immediate response. Every
+inefficiency that survives training is paid repeatedly for years afterwards.
+If training determines the cost of creating intelligence, inference determines the cost of living with it.
+And those two costs are rarely the same.

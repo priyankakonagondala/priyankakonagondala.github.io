@@ -1,0 +1,80 @@
+---
+title: "Priyanka's Blog"
+subtitle: "Thoughts on technology, programming, and life."
+toc: true
+toc-depth: 2
+execute:
+  echo: false
+---
+
+```{=html}
+<div class="profile-row">
+<div>
+<img src="profile_img.png" alt="Profile Photo" class="profile-image">
+</div>
+<div class="profile-text">
+```
+
+I am an AI Product Architect and Data Science Director with over 13 years of experience bridging the gap between deep learning research and scalable enterprise software.
+Currently, I focus on designing multi-agent orchestration frameworks and advanced RAG pipelines that power secure, autonomous financial platforms.
+My background spans architecting Tier-1 conversational AI systems deployed globally across millions of flagship smartphones and connected vehicles.
+I specialize in transforming complex transformer models from conceptual notebooks into highly optimized, low-latency deployments for both cloud and edge environments.
+Through this technical log, I share my ongoing explorations into local LLM execution, hardware optimization, and the future of agentic workflows.
+
+```{=html}
+</div>
+</div>
+```
+
+## Experience
+
+```{=html}
+<div class="experience-entry">
+  <div class="exp-header">
+    <span class="exp-company">JP Morgan Chase, Bangalore</span>
+    <span class="exp-dates">Apr 2025 – Present</span>
+  </div>
+  <div class="exp-role">Data Science Lead, Vice President</div>
+  <div class="exp-desc">Leading the agentic platform for Asset and Wealth Management, building autonomous AI systems for financial workflows.</div>
+</div>
+
+<div class="experience-entry">
+  <div class="exp-header">
+    <span class="exp-company">Jio Platforms Limited, Bangalore</span>
+    <span class="exp-dates">Nov 2019 – Apr 2025</span>
+  </div>
+  <div class="exp-role">Lead Data Scientist</div>
+  <div class="exp-desc">HelloJio / HelloMG: Reliance Jio's voice assistant deployed on Jio Set Top Boxes and MG India cars.</div>
+</div>
+
+<div class="experience-entry">
+  <div class="exp-header">
+    <span class="exp-company">Dell Technologies, Bangalore</span>
+    <span class="exp-dates">Jun 2019 – Nov 2019</span>
+  </div>
+  <div class="exp-role">Senior Machine Learning Engineer</div>
+</div>
+
+<div class="experience-entry">
+  <div class="exp-header">
+    <span class="exp-company">Tech Mahindra, Bangalore</span>
+    <span class="exp-dates">Jan 2017 – Jun 2019</span>
+  </div>
+  <div class="exp-role">Machine Learning Engineer</div>
+  <div class="exp-desc">Bixby: Samsung voice assistant for their flagship phones.</div>
+</div>
+
+<div class="experience-entry">
+  <div class="exp-header">
+    <span class="exp-company">TCS, Bangalore</span>
+    <span class="exp-dates">Sep 2012 – Dec 2016</span>
+  </div>
+  <div class="exp-role">Software Engineer</div>
+</div>
+```
+
+## Follow Me {#follow-me}
+
+- [GitHub](https://github.com)
+- [LinkedIn](https://www.linkedin.com/in/priyanka-konagondala/)
+- [Twitter](https://twitter.com)
