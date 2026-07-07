@@ -1,0 +1,12 @@
+[
+  {
+    "listing": "/posts/index.html",
+    "items": [
+      "/posts/the-limits-of-scale.html",
+      "/posts/transformer_arch_to_infra.html",
+      "/posts/nvidia_gpu_evolution.html",
+      "/posts/karpathy_autoresearch.html",
+      "/posts/innovation_and_etics.html"
+    ]
+  }
+]

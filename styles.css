@@ -1,0 +1,299 @@
+/* === Base colors === */
+body {
+  background-color: #00072D;
+  color: #d4d4d4;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #f0f0f0;
+}
+
+a {
+  color: #5dade2;
+}
+
+a:hover {
+  color: #85c1e8;
+}
+
+/* === Navbar === */
+.navbar {
+  background-color: #011040 !important;
+  border-bottom: 1px solid #0a2463;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: #999 !important;
+}
+
+.navbar .nav-link:hover {
+  color: #d4d4d4 !important;
+}
+
+.navbar .bs-navbar-search-button {
+  color: #999 !important;
+}
+
+.navbar-collapse {
+  flex-grow: 0 !important;
+}
+
+.navbar-nav .nav-link {
+  margin-left: 1rem;
+}
+
+/* === Main content width === */
+.quarto-title-meta,
+.content {
+  max-width: 1400px;
+}
+
+/* Override Quarto's grid column to widen blog/book content */
+.page-columns {
+  grid-template-columns: [screen-start] 1.5em [screen-start-inset] 5fr [page-start page-start-inset] 35px [body-start-outset] 35px [body-start] 1.5em [body-content-start] minmax(500px, calc(1400px - 3em)) [body-content-end] 1.5em [body-end] 35px [body-end-outset] minmax(75px, 145px) [page-end-inset] 35px [page-end] 5fr [screen-end-inset] 1.5em [screen-end] !important;
+}
+
+.page-columns.book-page {
+  grid-template-columns: [screen-start] 1.5em [screen-start-inset] 5fr [page-start page-start-inset] 35px [body-start-outset] 35px [body-start] 1.5em [body-content-start] minmax(500px, calc(1400px - 3em)) [body-content-end] 1.5em [body-end] 35px [body-end-outset] 35px [page-end-inset page-end] 5fr [screen-end-inset] 1.5em !important;
+}
+
+/* === Profile image === */
+.profile-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* === Profile row layout === */
+.profile-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.profile-row .profile-text {
+  flex: 1;
+}
+
+/* === Section headings === */
+h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #0a2463;
+  font-size: 1.6rem;
+}
+
+/* === Newsletter button === */
+.newsletter-btn {
+  display: inline-block;
+  background-color: #0a2463;
+  color: #f0f0f0 !important;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  margin: 1rem 0;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.newsletter-btn:hover {
+  background-color: #153a7e;
+}
+
+/* === Tables === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+thead {
+  border-bottom: 1px solid #1a3a6e;
+}
+
+th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  color: #f0f0f0;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+td {
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid #0a2463;
+  vertical-align: middle;
+}
+
+td:first-child {
+  color: #999;
+  white-space: nowrap;
+  width: 100px;
+}
+
+td a {
+  text-decoration: none;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+
+/* === Sidebar (book chapters) === */
+#quarto-sidebar {
+  background-color: #011040 !important;
+  border-right: 1px solid #0a2463 !important;
+}
+
+#quarto-sidebar .sidebar-item-container .sidebar-item {
+  color: #5dade2;
+}
+
+#quarto-sidebar .sidebar-item-toggle {
+  color: #f0f0f0;
+}
+
+#quarto-sidebar .sidebar-item {
+  padding-block: 0.6rem;
+}
+
+#quarto-sidebar .sidebar-link {
+  color: #5dade2;
+  padding-block: 0.3rem;
+}
+
+#quarto-sidebar .sidebar-link.active {
+  color: #f0f0f0;
+  font-weight: 600;
+}
+
+#toc-title {
+  color: #f0f0f0;
+}
+
+/* Hide sidebar toggle button on non-book pages */
+body:not(.book-page) .navbar .quarto-btn-toggle {
+  display: none !important;
+}
+
+/* Hide sidebar on non-book pages */
+body:not(.book-page) #quarto-sidebar {
+  display: none !important;
+}
+
+body:not(.book-page) .quarto-sidebar-overlay {
+  display: none !important;
+}
+
+/* Sidebar section collapse handled by JS, not CSS */
+
+/* Fix body class so sidebar is hidden on non-book pages */
+body:not(.book-page) .page-columns .page-column-side {
+  display: none !important;
+}
+
+/* === Blog listing cards === */
+.list-card-title a {
+  color: #f0f0f0 !important;
+}
+
+.list-card-text {
+  color: #ccc !important;
+}
+
+/* === Blog default listing === */
+.listing-title a,
+.listing-title {
+  color: #ffffff !important;
+}
+
+.listing-description a,
+.listing-description {
+  color: #ccc !important;
+}
+
+.listing-date a,
+.listing-date {
+  color: #999 !important;
+}
+
+.quarto-listing-filter {
+  background-color: #011040;
+  color: #d4d4d4;
+}
+
+/* === Search overlay === */
+.quarto-search-modal .card {
+  background-color: #011040;
+  color: #d4d4d4;
+}
+
+/* === Divider lines === */
+hr {
+  border-color: #0a2463;
+}
+
+/* === Footer === */
+.page-footer {
+  background-color: #011040 !important;
+  border-top: 1px solid #0a2463;
+  color: #999 !important;
+}
+
+/* === Experience entries === */
+.experience-entry {
+  border-left: 3px solid #0a2463;
+  padding-left: 1.25rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.experience-entry:first-of-type {
+  padding-top: 0;
+}
+
+.exp-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+.exp-company {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.exp-dates {
+  color: #999;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.exp-role {
+  color: #5dade2;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.exp-desc {
+  color: #ccc;
+  font-size: 0.95rem;
+  text-align: justify;
+}
+
+/* === Bio text === */
+p {
+  line-height: 1.7;
+  color: #ccc;
+  text-align: justify;
+}
